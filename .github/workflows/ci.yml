@@ -33,9 +33,11 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '21'
+          distribution: 'corretto'
       
       - name: Build project
         run: mvn clean package
+          ls -al ./target
       
       - name: Configurar Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -55,4 +57,7 @@ jobs:
 
       - name: Deploy na EC2
         run: |
-          ssh -i /path/to/your-key.pem ec2-user@${{ secrets.IP_EC2 }} 'docker-compose -f /path/to/your/docker-compose.yml up -d'
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.IP_EC2 }} << 'EOF'
+            cd /home/ec2-user/api
+            docker-compose -f /home/ec2-user/api/docker-compose.yml up -d --build
+          EOF
