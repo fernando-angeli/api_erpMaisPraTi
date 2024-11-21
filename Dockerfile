@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:21-jdk-slim
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /api-erp
