@@ -49,6 +49,10 @@ jobs:
       - name: Rodar testes (se houver)
         run: docker exec api-erp ./run-tests.sh 
 
+      - name: Copiar arquivos para a EC2
+        run: |
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ec2-user@${{ secrets.IP_EC2 }}:/home/ec2-user/api
+
       - name: Deploy na EC2
         run: |
           ssh -i /path/to/your-key.pem ec2-user@${{ secrets.IP_EC2 }} 'docker-compose -f /path/to/your/docker-compose.yml up -d'
