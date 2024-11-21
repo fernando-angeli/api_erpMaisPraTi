@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  api:
+  api-erp:
     build: .
     container_name: api-erp
     ports:
@@ -14,6 +14,11 @@ services:
       - db               # Garante que o banco de dados suba primeiro
     networks:
       - minha-rede
+    image: api-erp
+    deploy:
+      resources:
+        limits:
+          memory: 2G
 
   db:
     image: mysql:8.0        # Versão mais recente do MySQL
