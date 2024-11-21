@@ -1,5 +1,5 @@
 # Usa a imagem base Amazon Corretto com Java 21
-FROM amazoncorretto:21
+FROM amazoncorretto:21 AS build
 
 # Instalar o Maven de forma eficiente
 RUN yum install -y maven && yum clean all
