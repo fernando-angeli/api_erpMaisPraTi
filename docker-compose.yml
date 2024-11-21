@@ -18,7 +18,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2G
+          memory: 4G
+    volumes:
+      - ./maven-repo:/root/.m2
 
   db:
     image: mysql:8.0        # Versão mais recente do MySQL
