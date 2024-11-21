@@ -1,5 +1,5 @@
 
-# API ERP Mais Pra Ti 
+# API ERP Mais Pra Ti
 
 Este repositório contém a API de um sistema de ERP (Enterprise Resource Planning) desenvolvido em Java com Spring Boot. A API oferece funcionalidades para gerenciamento de clientes, produtos, pedidos de compra, vendas e controle de estoque, com autenticação baseada em JWT e OAuth2.
 
