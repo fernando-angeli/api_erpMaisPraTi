@@ -49,16 +49,20 @@ jobs:
       - name: Configurar Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # - name: Construir as imagens Docker
-      #   run: docker-compose -f docker-compose.yml build
+     # Construir as imagens Docker
+      - name: Construir as imagens Docker
+        run: docker-compose -f docker-compose.yml build
 
-      # - name: Subir containers Docker (Testar localmente)
-      #   run: docker-compose -f docker-compose.yml up
+      # Subir os contêineres Docker em segundo plano
+      - name: Subir containers Docker
+        run: docker-compose -f docker-compose.yml up -d
 
-      #teste novo
-      - name: Subir containers Docker (teste)
-        run: docker-compose up -d
-      
+      # Aguardar a inicialização do contêiner (opcional)
+      - name: Aguardar contêineres estarem prontos
+        run: |
+          docker ps -a
+          docker ps
+          
       - name: Tornar script executável
         run: chmod +x ./run-tests.sh
 
