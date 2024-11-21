@@ -1,5 +1,8 @@
 FROM amazoncorretto:21
 
+# Instalar o Maven
+RUN yum install -y maven
+
 # Define o diretório de trabalho dentro do container
 WORKDIR /api-erp
 
