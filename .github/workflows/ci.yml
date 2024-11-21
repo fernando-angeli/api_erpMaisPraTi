@@ -86,10 +86,12 @@ jobs:
       - name: Debug .env creation
         run: |
           cat .env
+        shell: bash
       
       - name: Clean up local .env file
         run: |
           rm .env
+        shell: bash
         
       - name: Copiar arquivos para a EC2
         run: |
