@@ -52,10 +52,6 @@ jobs:
      # Construir as imagens Docker
       - name: Construir as imagens Docker
         run: docker-compose -f docker-compose.yml build
-
-     # Derrubar container antes de subir nova instancia
-      - name: Derrubar containers Docker antes de subir novo
-        run: docker-compose down
         
       # Subir os contêineres Docker em segundo plano
       - name: Subir containers Docker
