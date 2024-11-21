@@ -36,7 +36,7 @@ jobs:
           distribution: 'corretto'
       
       - name: Build project
-        run: mvn clean package
+        run: mvn clean package -X
           ls -al ./target
       
       - name: Configurar Docker Buildx
