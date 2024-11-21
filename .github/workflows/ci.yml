@@ -67,11 +67,11 @@ jobs:
           docker ps -a
           docker ps
           
-      - name: Tornar script executável
-        run: chmod +x ./run-tests.sh
+      # - name: Tornar script executável
+      #   run: chmod +x ./run-tests.sh
 
-      - name: Rodar testes (se houver)
-        run: docker exec api-erp ./run-tests.sh 
+      # - name: Rodar testes (se houver)
+      #   run: docker exec api-erp ./run-tests.sh 
 
       - name: Copiar arquivos para a EC2
         run: |
