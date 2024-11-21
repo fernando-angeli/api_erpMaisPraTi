@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Clonar o repositório
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Configurar acesso SSH
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    # Copiar arquivos para o EC2
+    - name: Copy files to EC2
+      run: |
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+          ./ ec2-user@<IP_da_instancia>:/home/ec2-user/api
+
+    # Rodar os comandos de deploy
+    - name: Deploy on EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@{{ secrets.EC2_IP }} << 'EOF'
+          cd /home/ec2-user/api
+          export MY_VARIABLE=${{ secrets.MY_VARIABLE }}
+          docker-compose down
+          docker-compose up -d --build
+        EOF
