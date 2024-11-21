@@ -75,18 +75,14 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
-          echo "APP_PROFILE=${{ secrets.APP_PROFILE }}" >> .env
-          echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
-          echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
-          echo "JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}" >> .env
-          echo "JWT_EXPIRATION_RECOVERY=${{ secrets.JWT_EXPIRATION_RECOVERY }}" >> .env
-        shell: bash
-
-      - name: Debug .env creation
-        run: |
-          cat .env
-        shell: bash
+          cat <<EOF > .env
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          APP_PROFILE=${{ secrets.APP_PROFILE }}
+          EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_USER=${{ secrets.EMAIL_USER }}
+          JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}
+          JWT_EXPIRATION_RECOVERY=${{ secrets.JWT_EXPIRATION_RECOVERY }}
+          EOF
       
       - name: Clean up local .env file
         run: |
