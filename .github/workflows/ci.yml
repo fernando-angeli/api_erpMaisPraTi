@@ -52,8 +52,8 @@ jobs:
       - name: Construir as imagens Docker
         run: docker-compose -f docker-compose.yml build
 
-      - name: Subir containers Docker (Testar localmente)
-        run: docker-compose -f docker-compose.yml up
+      # - name: Subir containers Docker (Testar localmente)
+      #   run: docker-compose -f docker-compose.yml up
       
       - name: Tornar script executável
         run: chmod +x ./run-tests.sh
