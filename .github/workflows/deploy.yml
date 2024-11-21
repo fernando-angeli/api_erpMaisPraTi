@@ -24,7 +24,7 @@ jobs:
     - name: Copy files to EC2
       run: |
         rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
-          ./ ec2-user@<IP_da_instancia>:/home/ec2-user/api
+          ./ ec2-user@{{ secrets.IP_EC2 }}:/home/ec2-user/api
 
     # Rodar os comandos de deploy
     - name: Deploy on EC2
