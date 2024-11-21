@@ -75,13 +75,21 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" > .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
           echo "APP_PROFILE=${{ secrets.APP_PROFILE }}" >> .env
           echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
           echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
           echo "JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}" >> .env
-          echo "JWT_EXPIRATION_RECOVERY=${{ secrets.JWT_EXPIRATION_RECOVERY }}" >> .env
-          
+          echo "JWT_EXPIRATION_RECOVERY=${{ secrets.JWT_EXPIRATION_RECOVERY }}" >> .env
+        shell: bash
+
+      - name: Debug .env creation
+        run: |
+          cat .env
+
+      - name: Clean up local .env file
+          run: rm .env
+        
       - name: Copiar arquivos para a EC2
         run: |
           rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ec2-user@${{ secrets.IP_EC2 }}:/home/ec2-user/api
