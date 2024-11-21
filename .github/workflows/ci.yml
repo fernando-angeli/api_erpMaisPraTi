@@ -29,10 +29,10 @@ jobs:
           echo "JWT_EXPIRATION_RECOVERY=${{ secrets.JWT_EXPIRATION_RECOVERY }}" >> $GITHUB_ENV          
 
       # Configurar o JDK para o build
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '21'
       
       - name: Build project
         run: mvn clean package
@@ -48,6 +48,10 @@ jobs:
 
       - name: Rodar testes (se houver)
         run: docker exec api-erp ./run-tests.sh 
+
+      - name: Copiar arquivos para a EC2
+        run: |
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ec2-user@${{ secrets.IP_EC2 }}:/home/ec2-user/api
 
       - name: Deploy na EC2
         run: |
