@@ -10,7 +10,7 @@ EXPOSE 8080
 # Copiar o projeto inteiro para o container
 COPY . .
 
-RUN export $(cat .env | xargs)
-
 # Comando para rodar o JAR com opções ajustadas
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar api-erp.jar"]
+RUN chmod +x ./entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
