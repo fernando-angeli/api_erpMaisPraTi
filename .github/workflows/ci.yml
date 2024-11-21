@@ -83,11 +83,6 @@ jobs:
           JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}
           JWT_EXPIRATION_RECOVERY=${{ secrets.JWT_EXPIRATION_RECOVERY }}
           EOF
-      
-      - name: Clean up local .env file
-        run: |
-          rm .env
-        shell: bash
         
       - name: Copiar arquivos para a EC2
         run: |
