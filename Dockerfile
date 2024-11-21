@@ -25,4 +25,4 @@ RUN chmod +x ./run-tests.sh
 # ENV JAVA_OPTS="-Xms512m -Xmx1024m"
 
 # Comando para rodar o JAR com opções ajustadas
-EENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar api-erp.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar api-erp.jar"]
