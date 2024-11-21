@@ -1,5 +1,5 @@
 # Usa a imagem base Amazon Corretto com Java 21
-FROM amazoncorretto:21 AS build
+FROM amazoncorretto:21
 
 # Instalar o Maven de forma eficiente
 RUN yum install -y maven && yum clean all
@@ -14,7 +14,7 @@ EXPOSE 8080
 COPY . .
 
 # Adiciona o arquivo JAR ao container
-COPY --from=build ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar
+COPY ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar
 RUN ls -al /build
 
 # Copiar o script de testes e garantir permissão para execução
