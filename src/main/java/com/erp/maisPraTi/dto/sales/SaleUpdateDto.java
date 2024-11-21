@@ -19,5 +19,7 @@ public class SaleUpdateDto {
     private LocalDate expectedDeliveryDate;
     @Enumerated(EnumType.STRING)
     private SaleStatus saleStatus;
+    private String sellerName;
+
 
 }

@@ -34,8 +34,10 @@ public class Sale {
     @JoinColumn(nullable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sale", fetch = FetchType.LAZY)
     private List<SaleItem> saleItems = new ArrayList<>();
+
+    private String sellerName;
 
     @Transient
     private BigDecimal totalSaleValue;
@@ -56,8 +58,11 @@ public class Sale {
     }
 
     public BigDecimal getTotalPendingDelivery(){
+        if (saleItems == null || saleItems.isEmpty())
+            return BigDecimal.ZERO;
         return saleItems.stream()
                 .map(SaleItem::getQuantityPending)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .filter(quantity -> quantity != null)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

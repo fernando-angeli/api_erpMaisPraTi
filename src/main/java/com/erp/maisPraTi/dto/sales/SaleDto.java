@@ -24,6 +24,8 @@ public class SaleDto {
 
     private Long saleNumber;
 
+    private String sellerName;
+
     private LocalDateTime saleDate;
     @NotNull(message = "Informe a data estimada para a entrega.")
     private LocalDate expectedDeliveryDate;

@@ -16,5 +16,9 @@ public class SaleInsertDto {
     private Long id;
     private LocalDate expectedDeliveryDate;
     private Long clientId;
+    private Long saleNumber;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String sellerName;
 
 }

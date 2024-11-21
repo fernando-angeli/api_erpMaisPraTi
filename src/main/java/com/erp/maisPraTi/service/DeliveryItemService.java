@@ -26,6 +26,9 @@ public class DeliveryItemService {
     private DeliveryItemRepository repository;
 
     @Autowired
+    private SaleService saleService;
+
+    @Autowired
     private SaleItemService saleItemService;
 
     @Autowired
@@ -38,6 +41,7 @@ public class DeliveryItemService {
 
         // Verifica se o item tem pendencia para entrega e cria um item na entrega
         verifyAvailabilityForDelivery(saleItem, request.getQuantityDelivery());
+
         // Cria um novo item de entrega
         DeliveryItem newDeliveryItem = convertToEntity(request, DeliveryItem.class);
 
@@ -47,13 +51,16 @@ public class DeliveryItemService {
         // Atualiza a quantidade entregue nos produtos e tira do estoque e da reserva
         productService.updateItemDeliveryQuantity(saleItem.getProduct().getId(), request.getQuantityDelivery());
 
+        // Verifica se a quantidade entregue irá concluir as entregas da venda.
+        saleService.verifySalePending(saleItem.getSale().getId(), request.getQuantityDelivery());
 
         newDeliveryItem = repository.save(newDeliveryItem);
+
         return convertToDto(newDeliveryItem, DeliveryItemsResponse.class);
     }
 
     private void verifyAvailabilityForDelivery(SaleItem saleItem, BigDecimal quantityDelivery){
-        if(saleItem.getQuantityPending().compareTo(quantityDelivery) > 0){
+        if(saleItem.getQuantityPending().compareTo(quantityDelivery) < 0){
             throw new ProductException("Quantidade informada não disponivel para entrega desse item.");
         }
     }

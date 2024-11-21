@@ -99,4 +99,14 @@ public class SaleService {
         throw new NotActivateException("Cliente inativo ou suspenso.");
     }
 
+    public void verifySalePending(Long saleId, BigDecimal quantityProductsDelivery){
+        Sale sale = saleRepository.findById(saleId)
+                .orElseThrow(() -> new ResourceNotFoundException("Venda não localizada."));
+        if(sale.getTotalPendingDelivery().compareTo(quantityProductsDelivery) == 0){
+            sale.setSaleStatus(SaleStatus.DELIVERED);
+            sale.setSaleDelivery(LocalDateTime.now());
+        }
+        saleRepository.save(sale);
+    }
+
 }

@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.erp.maisPraTi.util.EntityMapper.convertToDto;
@@ -42,8 +44,13 @@ public class UserService {
         newUser.setUpdatedAt(LocalDateTime.now());
         updateRoles(userInsertDto.getRoles(), newUser);
         newUser.setPassword(passwordEncoder.encode(userInsertDto.getPassword()));
+        Map<String, String> cards = new HashMap<>();
+        cards.put("slot1", "");
+        cards.put("slot2", "");
+        cards.put("slot3", "");
         newUser = userRepository.save(newUser);
         return convertToDto(newUser, UserDto.class);
+
     }
 
     @Transactional(readOnly = true)
