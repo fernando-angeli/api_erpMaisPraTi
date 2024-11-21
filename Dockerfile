@@ -8,8 +8,9 @@ EXPOSE 8080
 
 # Adiciona o arquivo JAR ao container
 COPY ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar
-COPY ./run-tests.sh /path/to/your/container/directory/
 
+# Copiar o script de testes para o contêiner
+COPY ./run-tests.sh /api-erp/run-tests.sh
 RUN chmod +x /app/run-tests.sh
 
 # Comando para rodar o JAR correto
