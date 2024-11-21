@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-slim
+FROM amazoncorretto:21
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /api-erp
@@ -8,6 +8,9 @@ EXPOSE 8080
 
 # Adiciona o arquivo JAR ao container
 COPY ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar
+COPY ./run-tests.sh /path/to/your/container/directory/
+
+RUN chmod +x /app/run-tests.sh
 
 # Comando para rodar o JAR correto
 ENTRYPOINT ["java", "-jar", "api-erp.jar"]
