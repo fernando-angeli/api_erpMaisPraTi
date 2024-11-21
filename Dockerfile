@@ -5,7 +5,7 @@ FROM amazoncorretto:21
 RUN yum install -y maven && yum clean all
 
 # Define o diretório de trabalho dentro do container
-WORKDIR /api-erp
+WORKDIR /api
 
 # Expor a porta 8080 para comunicação
 EXPOSE 8080
