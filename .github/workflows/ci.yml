@@ -81,6 +81,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.IP_EC2 }} << 'EOF'
             cd /home/ec2-user/api
-            docker-compose down
+            docker-compose stop api-erp
+            docker-compose rm -f api-erp
             docker-compose -f /home/ec2-user/api/docker-compose.yml up -d --build
           EOF
