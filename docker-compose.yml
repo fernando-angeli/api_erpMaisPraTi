@@ -16,7 +16,7 @@ services:
       - minha-rede
     image: api-erp
     env_file:
-      - ./.env
+      - .env
     deploy:
       resources:
         limits:
