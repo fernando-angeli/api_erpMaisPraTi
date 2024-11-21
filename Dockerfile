@@ -1,24 +1,27 @@
+# Usa a imagem base Amazon Corretto com Java 21
 FROM amazoncorretto:21
 
-# Instalar o Maven
-RUN yum install -y maven
+# Instalar o Maven de forma eficiente
+RUN yum install -y maven && yum clean all
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /api-erp
 
-# Expoe a porta 8080
+# Expor a porta 8080 para comunicação
 EXPOSE 8080
 
 # Adiciona o arquivo JAR ao container
 COPY ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar
 
-# Copiar projeto inteiro para o container
-COPY . /api-erp/
+# Copiar o projeto inteiro para o container
+COPY . .
 
-# Copiar o script de testes para o contêiner
-COPY ./run-tests.sh /api-erp/run-tests.sh
-# Garante a permissão para execução do script de teste
-RUN chmod +x /api-erp/run-tests.sh
+# Copiar o script de testes e garantir permissão para execução
+COPY ./run-tests.sh ./run-tests.sh
+RUN chmod +x ./run-tests.sh
 
-# Comando para rodar o JAR correto
-ENTRYPOINT ["java", "-jar", "api-erp.jar"]
+# Definir memória máxima para a JVM e melhorar a eficiência
+ENV JAVA_OPTS="-Xms512m -Xmx1024m"
+
+# Comando para rodar o JAR com opções ajustadas
+ENTRYPOINT ["java", "-jar", "$JAVA_OPTS", "api-erp.jar"]
