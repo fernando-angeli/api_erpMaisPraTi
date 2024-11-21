@@ -6,4 +6,4 @@ if [ -f .env ]; then
 fi
 
 # Run the Java application
-java -jar api-erp.jar
+java -jar api-erp.jar
