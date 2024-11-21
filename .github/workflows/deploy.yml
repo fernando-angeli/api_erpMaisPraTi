@@ -24,12 +24,12 @@ jobs:
     - name: Copy files to EC2
       run: |
         rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
-          ./ ec2-user@<IP_da_instancia>:/home/ec2-user/api
+          ./ ec2-user@${{ secrets.IP_EC2 }}:/home/ec2-user/api
 
     # Rodar os comandos de deploy
     - name: Deploy on EC2
       run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@{{ secrets.EC2_IP }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.IP_EC2 }} << 'EOF'
           cd /home/ec2-user/api
           export MY_VARIABLE=${{ secrets.MY_VARIABLE }}
           docker-compose down
