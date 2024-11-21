@@ -10,11 +10,12 @@ WORKDIR /api
 # Expor a porta 8080 para comunicação
 EXPOSE 8080
 
-# Adiciona o arquivo JAR ao container
-COPY ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar
-
 # Copiar o projeto inteiro para o container
 COPY . .
+
+# Adiciona o arquivo JAR ao container
+COPY --from=build ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar
+RUN ls -al /build
 
 # Copiar o script de testes e garantir permissão para execução
 COPY ./run-tests.sh ./run-tests.sh
@@ -24,4 +25,4 @@ RUN chmod +x ./run-tests.sh
 # ENV JAVA_OPTS="-Xms512m -Xmx1024m"
 
 # Comando para rodar o JAR com opções ajustadas
-ENTRYPOINT ["java", "-jar", "$JAVA_OPTS", "api-erp.jar"]
+EENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar api-erp.jar"]
