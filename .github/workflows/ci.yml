@@ -54,6 +54,9 @@ jobs:
 
       - name: Subir containers Docker (Testar localmente)
         run: docker-compose -f docker-compose.yml up -d
+      
+      - name: Tornar script executável
+        run: chmod +x ./run-tests.sh
 
       - name: Rodar testes (se houver)
         run: docker exec api-erp ./run-tests.sh 
