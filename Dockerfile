@@ -15,7 +15,7 @@ COPY . .
 
 # Adiciona o arquivo JAR ao container
 COPY ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar
-RUN ls -al /build
+RUN ls -al ./target
 
 # Copiar o script de testes e garantir permissão para execução
 COPY ./run-tests.sh ./run-tests.sh
