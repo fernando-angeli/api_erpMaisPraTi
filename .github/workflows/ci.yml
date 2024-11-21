@@ -37,7 +37,6 @@ jobs:
       
       - name: Build project
         run: mvn clean package -X
-          ls -al ./target
       
       - name: Configurar Docker Buildx
         uses: docker/setup-buildx-action@v2
