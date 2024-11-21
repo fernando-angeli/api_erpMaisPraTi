@@ -76,7 +76,9 @@ jobs:
       - name: Copiar arquivos para a EC2
         run: |
           rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ec2-user@${{ secrets.IP_EC2 }}:/home/ec2-user/api
-
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.IP_EC2 }} "rm -rf /home/ec2-user/api/* && mkdir -p /home/ec2-user/api"
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ec2-user@${{ secrets.IP_EC2 }}:/home/ec2-user/api
+          
       - name: Deploy na EC2
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.IP_EC2 }} << 'EOF'
