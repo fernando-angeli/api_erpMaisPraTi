@@ -21,7 +21,7 @@ COPY ./run-tests.sh ./run-tests.sh
 RUN chmod +x ./run-tests.sh
 
 # Definir memória máxima para a JVM e melhorar a eficiência
-ENV JAVA_OPTS="-Xms512m -Xmx1024m"
+# ENV JAVA_OPTS="-Xms512m -Xmx1024m"
 
 # Comando para rodar o JAR com opções ajustadas
 ENTRYPOINT ["java", "-jar", "$JAVA_OPTS", "api-erp.jar"]
