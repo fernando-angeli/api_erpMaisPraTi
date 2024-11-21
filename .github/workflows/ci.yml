@@ -88,7 +88,7 @@ jobs:
           cat .env
 
       - name: Clean up local .env file
-          run: rm .env
+        run: rm .env
         
       - name: Copiar arquivos para a EC2
         run: |
