@@ -53,7 +53,7 @@ jobs:
         run: docker-compose -f docker-compose.yml build
 
       - name: Subir containers Docker (Testar localmente)
-        run: docker-compose -f docker-compose.yml up -d
+        run: docker-compose -f docker-compose.yml up
       
       - name: Tornar script executável
         run: chmod +x ./run-tests.sh
