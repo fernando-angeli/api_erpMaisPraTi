@@ -45,9 +45,9 @@ public class UserService {
         updateRoles(userInsertDto.getRoles(), newUser);
         newUser.setPassword(passwordEncoder.encode(userInsertDto.getPassword()));
         Map<String, String> cards = new HashMap<>();
-        cards.put("slot1", "");
-        cards.put("slot2", "");
-        cards.put("slot3", "");
+        cards.put("slot1", "item1");
+        cards.put("slot2", "item2");
+        cards.put("slot3", "item3");
         newUser = userRepository.save(newUser);
         return convertToDto(newUser, UserDto.class);
 

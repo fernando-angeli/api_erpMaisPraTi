@@ -21,5 +21,4 @@ public class SaleUpdateDto {
     private SaleStatus saleStatus;
     private String sellerName;
 
-
 }

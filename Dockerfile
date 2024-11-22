@@ -1,16 +1,18 @@
 # Usa a imagem base Amazon Corretto com Java 21
 FROM amazoncorretto:21
 
-# Define o diretório de trabalho dentro do container
+# Define o diretório de trabalho
 WORKDIR /api
 
-# Expor a porta 8080 para comunicação
+# Copia o JAR e o script para o container
+COPY target/maisPraTi-0.0.1-SNAPSHOT.jar maisPraTi-0.0.1-SNAPSHOT.jar
+COPY entrypoint.sh entrypoint.sh
+
+# Permissão para execução do script
+RUN chmod +x entrypoint.sh
+
+# Expõe a porta 8080
 EXPOSE 8080
 
-# Copiar o projeto inteiro para o container
-COPY . .
-
-# Comando para rodar o JAR com opções ajustadas
-RUN chmod +x ./entrypoint.sh
-
+# Comando para iniciar a aplicação
 ENTRYPOINT ["./entrypoint.sh"]
