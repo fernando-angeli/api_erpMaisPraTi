@@ -38,17 +38,24 @@ public class DeliveryItemService {
     public DeliveryItemsResponse insert(Long deliveryId, DeliveryItemsRequest request) {
 
         SaleItem saleItem = convertToEntity(saleItemService.findById(request.getSaleItemId()), SaleItem.class);
+
         // Verifica se o item tem pendencia para entrega e cria um item na entrega
         verifyAvailabilityForDelivery(saleItem, request.getQuantityDelivery());
+
         // Cria um novo item de entrega
         DeliveryItem newDeliveryItem = convertToEntity(request, DeliveryItem.class);
+
         // Atualiza a quantidade entregue no item de venda
         saleItemService.updateItemDeliveryQuantity(request.getSaleItemId(), request.getQuantityDelivery());
+
         // Atualiza a quantidade entregue nos produtos e tira do estoque e da reserva
         productService.updateItemDeliveryQuantity(saleItem.getProduct().getId(), request.getQuantityDelivery());
+
         // Verifica se a quantidade entregue irá concluir as entregas da venda.
         saleService.verifySalePending(saleItem.getSale().getId(), request.getQuantityDelivery());
+
         newDeliveryItem = repository.save(newDeliveryItem);
+
         return convertToDto(newDeliveryItem, DeliveryItemsResponse.class);
     }
 

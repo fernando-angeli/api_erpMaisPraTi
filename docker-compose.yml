@@ -6,6 +6,10 @@ services:
     container_name: api-erp
     ports:
       - "8080:8080"    # Mapeia a porta 8080 do container para a porta 8080 da instância
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/bd_dev
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
     depends_on:
       - db               # Garante que o banco de dados suba primeiro
     networks:

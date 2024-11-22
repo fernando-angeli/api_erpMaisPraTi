@@ -6,4 +6,4 @@ if [ -f .env ]; then
 fi
 
 # Run the Java application
-java -jar ./target/maisPraTi-0.0.1-SNAPSHOT.jar
+java -jar ./target/maisPraTi-0.0.1-SNAPSHOT.jar api-erp.jar

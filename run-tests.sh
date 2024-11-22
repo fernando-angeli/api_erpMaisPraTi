@@ -1,4 +1,5 @@
 #!/bin/bash
+export MAVEN_OPTS="-Xmx1024m"
 mvn clean test
 
 echo "Iniciando os testes..."
