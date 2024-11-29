@@ -31,7 +31,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword  # Senha do root
       MYSQL_USER: user                 # Usuário da aplicação
       MYSQL_PASSWORD: password         # Senha do usuário
-      MYSQL_DATABASE: meubanco          # Nome do banco de dados a ser criado
+      MYSQL_DATABASE: bd_dev          # Nome do banco de dados a ser criado
     ports:
       - "3306:3306"       # Mapeia a porta 3306 do container para a porta 3306 da instância
     volumes:
