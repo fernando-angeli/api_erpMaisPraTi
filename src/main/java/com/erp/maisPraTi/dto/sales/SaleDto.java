@@ -39,7 +39,7 @@ public class SaleDto {
 
     private BigDecimal totalSaleValue;
 
-    private BigDecimal getTotalPendingDelivery;
+    private BigDecimal totalPendingDelivery;
 
     @Enumerated(EnumType.STRING)
     private SaleStatus saleStatus;

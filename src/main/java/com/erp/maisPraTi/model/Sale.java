@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -34,7 +35,7 @@ public class Sale {
     @JoinColumn(nullable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "sale", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
     private List<SaleItem> saleItems = new ArrayList<>();
 
     private String sellerName;
@@ -42,11 +43,14 @@ public class Sale {
     @Transient
     private BigDecimal totalSaleValue;
 
+    @Transient
+    private BigDecimal totalPendingDelivery;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SaleStatus saleStatus;
 
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Delivery> deliveries = new ArrayList<>();
 
     public BigDecimal getTotalSaleValue() {
@@ -58,11 +62,11 @@ public class Sale {
     }
 
     public BigDecimal getTotalPendingDelivery(){
-        if (saleItems == null || saleItems.isEmpty())
-            return BigDecimal.ZERO;
+        if (saleItems == null)
+            return new BigDecimal(0);
         return saleItems.stream()
                 .map(SaleItem::getQuantityPending)
-                .filter(quantity -> quantity != null)
+                .filter(Objects::nonNull)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

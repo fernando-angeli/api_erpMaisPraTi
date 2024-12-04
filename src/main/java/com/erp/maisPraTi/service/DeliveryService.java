@@ -30,7 +30,7 @@ public class DeliveryService {
 
         Sale sale = convertToEntity(saleService.findById(request.getSaleId()), Sale.class);
 
-        if(sale.getTotalPendingDelivery().compareTo(BigDecimal.ZERO) >= 0){
+        if(sale.getTotalPendingDelivery().compareTo(BigDecimal.ZERO) > 0){
             Delivery newDelivery = convertToEntity(request, Delivery.class);
             if(request.getDateDelivery() == null)
                 newDelivery.setDateDelivery(LocalDateTime.now());
