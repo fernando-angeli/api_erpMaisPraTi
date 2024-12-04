@@ -164,7 +164,10 @@ public class SaleItemService {
     public void updateItemDeliveryQuantity(Long saleItemId, BigDecimal quantityDelivery) {
         SaleItem saleItem = saleItemRepository.findById(saleItemId)
                 .orElseThrow(() -> new ResourceNotFoundException("Item não localizado pelo id informado."));
-        saleItem.setQuantityDelivered(quantityDelivery);
+        if(saleItem.getQuantityDelivered().compareTo(BigDecimal.ZERO) > 0)
+            saleItem.setQuantityDelivered(saleItem.getQuantityDelivered().add(quantityDelivery));
+         else
+            saleItem.setQuantityDelivered(quantityDelivery);
         saleItemRepository.save(saleItem);
     }
 }

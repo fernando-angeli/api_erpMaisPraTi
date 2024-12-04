@@ -2,6 +2,7 @@ package com.erp.maisPraTi.service;
 
 import com.erp.maisPraTi.dto.deliveries.DeliveryRequest;
 import com.erp.maisPraTi.dto.deliveries.DeliveryResponse;
+import com.erp.maisPraTi.enums.SaleStatus;
 import com.erp.maisPraTi.model.Delivery;
 import com.erp.maisPraTi.model.Sale;
 import com.erp.maisPraTi.repository.DeliveryRepository;
@@ -30,7 +31,7 @@ public class DeliveryService {
 
         Sale sale = convertToEntity(saleService.findById(request.getSaleId()), Sale.class);
 
-        if(sale.getTotalPendingDelivery().compareTo(BigDecimal.ZERO) > 0){
+        if(sale.getTotalPendingDelivery().compareTo(BigDecimal.ZERO) > 0 && sale.getSaleStatus().equals(SaleStatus.PENDING)){
             Delivery newDelivery = convertToEntity(request, Delivery.class);
             if(request.getDateDelivery() == null)
                 newDelivery.setDateDelivery(LocalDateTime.now());

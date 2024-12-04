@@ -1,18 +1,23 @@
 package com.erp.maisPraTi.model;
 
 import com.erp.maisPraTi.enums.UnitOfMeasure;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "tb_sale_items")
 public class SaleItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,8 +36,8 @@ public class SaleItem {
 
     private BigDecimal quantityDelivered;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sale_id")
+    @ManyToOne
+    @JsonIgnore
     private Sale sale;
 
     public BigDecimal getQuantityPending(){

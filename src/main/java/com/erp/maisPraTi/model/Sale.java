@@ -1,8 +1,12 @@
 package com.erp.maisPraTi.model;
 
 import com.erp.maisPraTi.enums.SaleStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,12 +16,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "tb_sales")
 public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -33,9 +39,11 @@ public class Sale {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonIgnoreProperties("sales")
     private Client client;
 
-    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<SaleItem> saleItems = new ArrayList<>();
 
     private String sellerName;
@@ -50,21 +58,21 @@ public class Sale {
     @Column(nullable = false)
     private SaleStatus saleStatus;
 
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Delivery> deliveries = new ArrayList<>();
 
     public BigDecimal getTotalSaleValue() {
-        if(saleItems == null)
+        if(this.saleItems == null)
             return new BigDecimal(0);
-        return saleItems.stream()
+        return this.saleItems.stream()
             .map(item -> item.getSalePrice().multiply(item.getQuantitySold()))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getTotalPendingDelivery(){
-        if (saleItems == null)
+        if (this.saleItems == null)
             return new BigDecimal(0);
-        return saleItems.stream()
+        return this.saleItems.stream()
                 .map(SaleItem::getQuantityPending)
                 .filter(Objects::nonNull)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

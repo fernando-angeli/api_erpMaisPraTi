@@ -10,6 +10,7 @@ import com.erp.maisPraTi.model.Client;
 import com.erp.maisPraTi.model.Sale;
 import com.erp.maisPraTi.repository.SaleRepository;
 import com.erp.maisPraTi.service.exceptions.DatabaseException;
+import com.erp.maisPraTi.service.exceptions.InvalidValueException;
 import com.erp.maisPraTi.service.exceptions.NotActivateException;
 import com.erp.maisPraTi.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -37,6 +39,9 @@ public class SaleService {
 
     @Transactional
     public SaleDto insert(SaleInsertDto dto) {
+        if(dto.getExpectedDeliveryDate().isBefore(LocalDate.now()))
+            throw  new InvalidValueException("A data de entrega não pode ser anterior a data de hoje.");
+
         Sale sale = new Sale();
         sale = convertToDto(dto, Sale.class);
         sale.setSaleDate(LocalDateTime.now());
@@ -101,12 +106,17 @@ public class SaleService {
 
     public void verifySalePending(Long saleId, BigDecimal quantityProductsDelivery){
         Sale sale = saleRepository.findById(saleId)
-                .orElseThrow(() -> new ResourceNotFoundException("Venda não localizada."));
-        if(sale.getTotalPendingDelivery().compareTo(quantityProductsDelivery) == 0){
+                .orElseThrow(() -> new ResourceNotFoundException("Venda de id " + saleId + " não localizada."));
+        processDelivery(sale, quantityProductsDelivery);
+    }
+
+    public void processDelivery(Sale sale, BigDecimal quantityProductsDelivery){
+        BigDecimal totalPending = sale.getTotalPendingDelivery();
+        if(totalPending.compareTo(BigDecimal.ZERO) == 0){
             sale.setSaleStatus(SaleStatus.DELIVERED);
             sale.setSaleDelivery(LocalDateTime.now());
+            saleRepository.save(sale);
         }
-        saleRepository.save(sale);
     }
 
 }

@@ -38,6 +38,8 @@ public class DeliveryItemService {
     public DeliveryItemsResponse insert(Long deliveryId, DeliveryItemsRequest request) {
 
         SaleItem saleItem = convertToEntity(saleItemService.findById(request.getSaleItemId()), SaleItem.class);
+        if(saleItem == null)
+            throw new ResourceNotFoundException("O item de venda de id " + request.getSaleItemId() + " não foi localizado.");
 
         // Verifica se o item tem pendencia para entrega e cria um item na entrega
         verifyAvailabilityForDelivery(saleItem, request.getQuantityDelivery());
