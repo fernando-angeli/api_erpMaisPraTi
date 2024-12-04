@@ -27,19 +27,19 @@ INSERT INTO tb_suppliers (full_name, type_pf_or_pj, cpf_cnpj, phone_number, emai
 INSERT INTO tb_suppliers (full_name, type_pf_or_pj, cpf_cnpj, state_registration, phone_number, email, address, number, district, zip_code, city, state, country, credit_limit, notes, status) VALUES ('Lucas Santos ME', 'PJ', '94.404.860/0001-34', '254-778', '(31) 9732-8876', 'lucas.santos@hotmail.com', 'Rua Amazonas', '567', 'Savassi', '30.140-000', 'Belo Horizonte', 'MG', 'Brasil', 20000.00, 'Sem histórico de inadimplência.', 'ACTIVE');
 INSERT INTO tb_suppliers (full_name, type_pf_or_pj, cpf_cnpj, state_registration, phone_number, email, address, number, district, zip_code, city, state, country, credit_limit, notes, status) VALUES ('Transportes Oliveira', 'PJ', '33.391.374/0001-34', '300-452', '(41) 9845-6598', 'mariana.oliveira@outlook.com', 'Rua XV de Novembro', '908', 'Centro Cívico', '80.020-000', 'Curitiba', 'PR', 'Brasil', 45000.00, 'Ótima cliente, paga sempre em dia.', 'ACTIVE');
 
-INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP001', 'Sal Cozinha', 'Descrição do Sal', 'UNIT', 10.00, 10, 2, 0);
-INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP002', 'Produto B', 'Descrição do Produto B', 'UNIT', 30.00, 20, 2, 0);
-INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP003', 'Produto C', 'Descrição do Produto C', 'BAR', 25.00, 10, 2, 0);
-INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP004', 'Produto D', 'Descrição do Produto D', 'KG', 75.00, 0, 2, 0);
-INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP005', 'Carne Moida ', 'Carne Moida Primeira', 'UNIT', 15.00, 0, 2, 0);
+INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP001', 'Sal Cozinha', 'Descrição do Sal', 'UNIT', 10.00, 10, 0, 0);
+INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP002', 'Produto B', 'Descrição do Produto B', 'UNIT', 30.00, 20, 0, 0);
+INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP003', 'Produto C', 'Descrição do Produto C', 'BAR', 25.00, 10, 0, 0);
+INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP004', 'Produto D', 'Descrição do Produto D', 'KG', 75.00, 0, 0, 0);
+INSERT INTO tb_products (supplier_code, name, description, unit_of_measure, product_price, stock, reserved_stock, incoming_stock) VALUES ('SUPP005', 'Carne Moida ', 'Carne Moida Primeira', 'UNIT', 15.00, 0, 0, 0);
 
-INSERT INTO tb_sales (sale_number, sale_date, expected_delivery_date, client_id, sale_status) VALUES (1, '2024-11-05 14:30:00', '2024-12-05', 1, 'PENDING');
-
-INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (1, 2, 20.0, 'UNIT', 0, 1);  -- Produto com ID 1, 2 vendidos, 1 entregue, na venda com ID 1
-INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (2, 2, 30.0, 'UNIT', 0, 1);  -- Produto com ID 2, 3 vendidos, 2 entregues, na venda com ID 1
-INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (3, 2, 40.0, 'UNIT', 0, 1);  -- Produto com ID 3, 1 vendido, 1 entregue, na venda com ID 1
-INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (4, 2, 50.0, 'UNIT', 0, 1);  -- Produto com ID 1, 5 vendidos, 0 entregues, na venda com ID 2
-INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (5, 2, 8.50, 'UNIT', 0, 1);  -- Produto com ID 4, 2 vendidos, 1 entregue, na venda com ID 2
+--INSERT INTO tb_sales (sale_number, sale_date, expected_delivery_date, client_id, sale_status) VALUES (1, '2024-11-05 14:30:00', '2024-12-05', 1, 'PENDING');
+--
+--INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (1, 2, 20.0, 'UNIT', 0, 1);  -- Produto com ID 1, 2 vendidos, 1 entregue, na venda com ID 1
+--INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (2, 2, 30.0, 'UNIT', 0, 1);  -- Produto com ID 2, 3 vendidos, 2 entregues, na venda com ID 1
+--INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (3, 2, 40.0, 'UNIT', 0, 1);  -- Produto com ID 3, 1 vendido, 1 entregue, na venda com ID 1
+--INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (4, 2, 50.0, 'UNIT', 0, 1);  -- Produto com ID 1, 5 vendidos, 0 entregues, na venda com ID 2
+--INSERT INTO tb_sale_items (product_id, quantity_sold, sale_price, unit_of_measure, quantity_delivered, sale_id) VALUES (5, 2, 8.50, 'UNIT', 0, 1);  -- Produto com ID 4, 2 vendidos, 1 entregue, na venda com ID 2
 
 --INSERT INTO tb_deliveries (sale_id, date_delivery) VALUES(1, now());
 --INSERT INTO tb_deliveries (sale_id, date_delivery) VALUES(1, now());
