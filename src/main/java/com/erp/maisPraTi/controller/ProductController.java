@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Tag(name = "Produtos", description = "Operações relacionadas aos Produtos.")
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://44.209.71.20:3000")
 @RequestMapping(value = "api/produtos")
 public class ProductController {
 
