@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Tag(name = "Fornecedores", description = "Operações relacionadas aos Fornecedores.")
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://44.209.71.20:3000")
 @RequestMapping(value = "/api/fornecedores")
 public class SupplierController {
 
