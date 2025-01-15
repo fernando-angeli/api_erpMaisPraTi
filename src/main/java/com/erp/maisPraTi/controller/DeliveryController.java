@@ -19,7 +19,7 @@ import java.net.URI;
 
 @Tag(name = "Entregas", description = "Operações relacionadas as entregas de vendas.")
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://44.209.71.20:3000")
 @RequestMapping(value = "api/entregas")
 public class DeliveryController {
 
